@@ -1,54 +1,78 @@
 #include <stdio.h>
 
-int main(){
+// Movimento TORRE (somente para a direita)
+void moverTorre(int casas) {
+    if (casas == 0) return; 
+    printf("Direita\n");
+    moverTorre(casas - 1); 
+}
 
-        //Bispo: 5 casas na diagonal superior direita
-        //Torre: 5 casas para a direita
-        //Rainha: 8 casas para a esquerda
-        //Cavalo: 2 casas para baixo e 1 casa para esquerda
-
-        int casas_bispo = 5;
-        int casas_torre = 5;
-        int casas_rainha = 8;
-        int casas_baixo_cavalo = 2;
-        int casas_esquerda_cavalo = 1;
-
-        //Move o Bispo 5 casas para cima em diagonal
-        printf(" --- Movimento do Bispo ---\n");
-        for (int i = 1; i <= casas_bispo; i++) {
-            printf("Diagonal cima direita\n");
-        }
-        
-        //Move a Torre 5 casas para a direita
-        printf(" --- Movimento da TORRE ---\n");
-        int contadorTorre = 1;
-        while (contadorTorre <= casas_torre) {
+// Movimento BISPO (cima)
+void moverBispo(int vertical, int horizontal) {
+    if (vertical == 0) return; 
+    
+    // Movimento BISPO (direita)
+    for (int j = 1; j <= horizontal; j++) {
         printf("Direita\n");
-        contadorTorre++;
+    }
+
+    printf("Cima\n"); 
+
+    moverBispo(vertical - 1, horizontal); 
+}
+
+// Movimento RAINHA (somente esquerda)
+void moverRainha(int casas) {
+    if (casas == 0) return;
+    printf("Esquerda\n");
+    moverRainha(casas - 1); 
+}
+
+// Movimento CAVALO (duas casas para cima e uma para a direita)
+
+void moverCavalo(int movimentos) {
+    for (int i = 1; i <= movimentos; i++) {
+        printf(" --- Movimento %d do Cavalo ---\n", i);
+
+        for (int j = 1; j <= 2; j++) {
+            printf("Cima\n");
+            if (j == 1) continue; 
         }
 
-        //Move a rainha 8 casas para a esquerda
-        printf(" --- Movimento da Rainha ---\n");
-        int contadorRainha = 1;
-        do {
-            printf("Esquerda\n");
-            contadorRainha++;
-        } while (contadorRainha <= casas_rainha);
-
-        //Move o Cavalho 2 casas para baixo e só após esse movimento ele move a peça para a esquerda
-        printf(" --- Movimento do Cavalo ---\n");
-        for (int i = 1; i <= casas_baixo_cavalo; i++) {
-            printf("Baixo\n");
-
-        }
-        int j = 1;
-        while (j <= casas_esquerda_cavalo) {
-            printf("Esquerda\n");
-            j++;
+    
+        for (int k = 1; k <= 1; k++) {
+            printf("Direita\n");
+            if (k == 1) break; 
         }
 
+        printf("\n"); 
+    }
+}
 
+int main() {
 
+    // Quantidade de casas e movimentos de cada peça
+    int casas_torre = 5;
+    int casas_rainha = 8;
+    int vertical_bispo = 3;  
+    int horizontal_bispo = 3; 
+    int movimentos_cavalo = 2;
+
+    // -------------------------------
+    printf("\n=== Movimento do BISPO ===\n");
+    moverBispo(vertical_bispo, horizontal_bispo);
+
+    // -------------------------------
+    printf("\n=== Movimento da TORRE ===\n");
+    moverTorre(casas_torre);
+
+    // -------------------------------
+    printf("\n=== Movimento da RAINHA ===\n");
+    moverRainha(casas_rainha);
+
+    // -------------------------------
+    printf("\n=== Movimento do CAVALO ===\n");
+    moverCavalo(movimentos_cavalo);
 
     return 0;
 }
